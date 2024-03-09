@@ -18,9 +18,13 @@ main{
 section{
     width: 100%;
 }
-.createNews{
+#createNews{
     padding-top: 80px;
-    
+    font-size: larger;
+}
+#editNews{
+    padding-top: 80px;
+    font-size: larger;
 }
 .newsPanel {
     width: 100%; /* Dostosuj szerokość sekcji do potrzeb */
