@@ -7,8 +7,9 @@ należy wykonac aby uruchonić projekt.
 
 -   Należy zainstalowac Środowisko
     [XAMMP](https://www.apachefriends.org/pl/download.html) w możliwie
-    najnowszej wersji zalecam 8.2.4 lub zainstalowac załączony plik z instalką w
-    plikach projektu
+    najnowszej wersji zalecam 8.2.4 lub zainstalowac załączony plik z instalką
+    na moim
+    [GoogleDrive](https://drive.google.com/file/d/1c6EBrCRODwjT9mKDt5Hwge94u5Yneluj/view?usp=sharing)
 
 -   Następnie pliki z tego projektu należy umieścic w lokalizacji
     C:\xammp\htdocs i uruchomić xammpa włączając usługi MySql i Apache
