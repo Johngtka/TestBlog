@@ -1,26 +1,22 @@
 <!-- @format -->
 
-Witam z tej strony Jan Gorczyński w tym pliku znajdują się instrukcje, które
-należy wykonac aby uruchonić projekt.
+This file contains the instructions you need to be followed to start the
+project.
 
-### 1.Konfiguracja Projektu:
+### 1.Project Configuration:
 
--   Należy zainstalowac Środowisko
-    [XAMMP](https://www.apachefriends.org/pl/download.html) w możliwie
-    najnowszej wersji zalecam 8.2.4 lub zainstalowac załączony plik z instalką
-    na moim
-    [GoogleDrive](https://drive.google.com/file/d/1c6EBrCRODwjT9mKDt5Hwge94u5Yneluj/view?usp=sharing)
-
--   Następnie pliki z tego projektu należy umieścic w lokalizacji
-    C:\xammp\htdocs i uruchomić xammpa włączając usługi MySql i Apache
-
--   Trzeba przejść do strony konfiguracyjnej
-    [phpmyadmin](https://localhost/phpmyadmin/) z włączonymi w panelu kontrolnym
-    usługami xammpa
-
--   Następnie należy utworzyć nową bazę danych o nazwie |meczykiblog| i
-    zaimportować elementy bazy z pliku .sql w projekcie klikając zakładke Import
-    po utworzeniu bazy
-
--   Potem wystarczy tylko odpalić [strone](https://localhost/TestBlog/) i
-    sprawdzić czy działa
+-   Install the Environment
+    [XAMMP](https://www.apachefriends.org/pl/download.html) in the latest
+    possible version. latest version possible, I recommend 8.2.4, or install the
+    attached installer file on my
+    [GoogleDrive](https://drive.google.com/file/d/1c6EBrCRODwjT9mKDt5Hwge94u5Yneluj/view?usp=sharing).
+-   Then place the files from this project in the location C:\xammp\htdocs and
+    start xammp by enabling the MySql and Apache services.
+-   You need to go to the configuration page
+    [phpmyadmin](https://localhost/phpmyadmin/) with the following services
+    enabled in the control panel xammp services
+-   Then create a new database named | meczykiblog | and import the database
+    elements from the .sql file in the project by clicking on the Import tab
+    after creating the database
+-   Then all you have to do is fire up [website](https://localhost/TestBlog/)
+    and check that it works
