@@ -1,12 +1,12 @@
 <?php
 require_once './PDOEngine.php';
-$query = $db->prepare('SELECT articles.*, 
-authors.name AS PrimaryAuthorName, 
-secondary_authors.name AS SecondaryAuthorName
-FROM articles
-LEFT JOIN authors ON articles.PrimalAuthor_id = authors.id
-LEFT JOIN authors AS secondary_authors ON articles.SecondaryAuthor_id = secondary_authors.id;');
+$query = $db->prepare('SELECT articles.id, articles.title, articles.text, articles.submission_date, GROUP_CONCAT(authors.name SEPARATOR \', \') AS author_names FROM articles
+INNER JOIN article_authors ON articles.id = article_authors.article_id
+INNER JOIN authors ON article_authors.author_id = authors.id
+GROUP BY articles.id, articles.title, articles.text, articles.submission_date;');
 $query->execute();
+$query1 = $db->query('SELECT * FROM authors');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,18 +55,9 @@ $query->execute();
                     <div class="newTile">
                         <h3><?php echo $row['title']; ?></h3>
                         <p><?php echo $row['text']; ?></p>
-                        <p><?php echo $row['creation_date']; ?></p>
-                        <?php
-                        if (!empty($row['SecondaryAuthorName'])) {
-                        ?>
-                            <p><?php echo $row['PrimaryAuthorName'] . ', ' . $row['SecondaryAuthorName']; ?></p>
-                        <?php
-                        } else {
-                        ?>
-                            <p><?php echo $row['PrimaryAuthorName']; ?></p>
-                        <?php
-                        }
-                        ?>
+                        <p><?php echo $row['submission_date']; ?></p>
+                        <p><?php echo $row['author_names']; ?></p>
+
 
                         <button onclick="editFormShowing(this)" data-id="<?php echo $row['id'] ?>">Edytuj</button>
                     </div>
@@ -90,31 +81,25 @@ $query->execute();
 
                     <label>Autor 1:</label><br>
                     <select name="author1" required>
-                        <option value="1">Jan Kowalski</option>
-                        <option value="2">Anna Nowak</option>
-                        <option value="3">Katarzyna Dąbrowska</option>
-                        <option value="4">Marek Wójcik</option>
-                        <option value="5">Agnieszka Kozłowska</option>
-                        <option value="6">Tomasz Zając</option>
-                        <option value="7">Małgorzata Mazur</option>
-                        <option value="8">Marcin Krawczyk</option>
-                        <option value="9">Joanna Pawlak</option>
-                        <option value="10">Test Author</option>
+
+                        <?php
+                        $query1->execute();
+
+                        while ($row = $query1->fetch()) {
+                            echo "<option value='{$row['id']}'>{$row['name']}</option>";
+                        }
+                        ?>
                     </select><br>
 
                     <label>Autor 2 (optional):</label><br>
                     <select name="author2">
                         <option value=""></option>
-                        <option value="1">Jan Kowalski</option>
-                        <option value="2">Anna Nowak</option>
-                        <option value="3">Katarzyna Dąbrowska</option>
-                        <option value="4">Marek Wójcik</option>
-                        <option value="5">Agnieszka Kozłowska</option>
-                        <option value="6">Tomasz Zając</option>
-                        <option value="7">Małgorzata Mazur</option>
-                        <option value="8">Marcin Krawczyk</option>
-                        <option value="9">Joanna Pawlak</option>
-                        <option value="10">Test Author</option>
+                        <?php
+                        $query1->execute();
+                        while ($row = $query1->fetch()) {
+                            echo "<option value='{$row['id']}'>{$row['name']}</option>";
+                        }
+                        ?>
                     </select><br>
 
 
@@ -135,31 +120,27 @@ $query->execute();
 
                     <label>Autor 1:</label><br>
                     <select name="author1" required>
-                        <option value="1">Jan Kowalski</option>
-                        <option value="2">Anna Nowak</option>
-                        <option value="3">Katarzyna Dąbrowska</option>
-                        <option value="4">Marek Wójcik</option>
-                        <option value="5">Agnieszka Kozłowska</option>
-                        <option value="6">Tomasz Zając</option>
-                        <option value="7">Małgorzata Mazur</option>
-                        <option value="8">Marcin Krawczyk</option>
-                        <option value="9">Joanna Pawlak</option>
-                        <option value="10">Test Author</option>
+
+                        <?php
+                        $query1->execute();
+
+                        while ($row = $query1->fetch()) {
+                            echo "<option value='{$row['id']}'>{$row['name']}</option>";
+                        }
+                        ?>
                     </select><br>
 
                     <label>Autor 2 (optional):</label><br>
                     <select name="author2">
-                        <option value="1">Jan Kowalski</option>
-                        <option value="2">Anna Nowak</option>
-                        <option value="3">Katarzyna Dąbrowska</option>
-                        <option value="4">Marek Wójcik</option>
-                        <option value="5">Agnieszka Kozłowska</option>
-                        <option value="6">Tomasz Zając</option>
-                        <option value="7">Małgorzata Mazur</option>
-                        <option value="8">Marcin Krawczyk</option>
-                        <option value="9">Joanna Pawlak</option>
-                        <option value="10">Test Author</option>
+                        <option value=""></option>
+                        <?php
+                        $query1->execute();
+                        while ($row = $query1->fetch()) {
+                            echo "<option value='{$row['id']}'>{$row['name']}</option>";
+                        }
+                        ?>
                     </select><br>
+
                     <input type="submit" name="edit_article" value="Edytuj artykuł">
 
                     <input type="hidden" name="article_id" id="articleIdInput" value="">
