@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2024 at 09:06 PM
+-- Generation Time: Mar 11, 2024 at 09:19 AM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -32,24 +32,9 @@ CREATE TABLE `articles` (
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
   `creation_date` date DEFAULT current_timestamp(),
-  `author_id` int(11) DEFAULT NULL
+  `PrimalAuthor_id` int(11) DEFAULT NULL,
+  `SecondaryAuthor_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `articles`
---
-
-INSERT INTO `articles` (`id`, `title`, `text`, `creation_date`, `author_id`) VALUES
-(1, 'Artykuł 1', 'test', '2024-03-09', 1),
-(2, 'Artykuł 2', 'test', '2024-03-09', 2),
-(3, 'Artykuł 3', 'test', '2024-03-09', 3),
-(4, 'Artykuł 4', 'test', '2024-03-09', 4),
-(5, 'Artykuł 5', 'test', '2024-03-09', 5),
-(6, 'Artykuł 6', 'test', '2024-03-09', 6),
-(7, 'Artykuł 7', 'test', '2024-03-09', 7),
-(8, 'Artykuł 8', 'test', '2024-03-09', 8),
-(9, 'Artykuł 9', 'test', '2024-03-09', 9),
-(10, 'Artykuł 10', 'test', '2024-03-09', 10);
 
 -- --------------------------------------------------------
 
@@ -98,7 +83,8 @@ INSERT INTO `authors` (`id`, `name`) VALUES
 --
 ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `author_id` (`author_id`);
+  ADD KEY `author_id` (`PrimalAuthor_id`),
+  ADD KEY `SecorndaryAuthor_id` (`SecondaryAuthor_id`);
 
 --
 -- Indeksy dla tabeli `article_authors`
@@ -121,7 +107,7 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `authors`
@@ -137,7 +123,8 @@ ALTER TABLE `authors`
 -- Constraints for table `articles`
 --
 ALTER TABLE `articles`
-  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`);
+  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`PrimalAuthor_id`) REFERENCES `authors` (`id`),
+  ADD CONSTRAINT `articles_ibfk_2` FOREIGN KEY (`SecondaryAuthor_id`) REFERENCES `authors` (`id`);
 
 --
 -- Constraints for table `article_authors`
