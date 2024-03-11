@@ -80,22 +80,11 @@ $query1 = $db->query('SELECT * FROM authors');
                     <textarea name="text"></textarea><br>
 
                     <label>Autor 1:</label><br>
-                    <select name="author1" required>
+                    <select name="author[]" required multiple="multiple">
 
                         <?php
                         $query1->execute();
 
-                        while ($row = $query1->fetch()) {
-                            echo "<option value='{$row['id']}'>{$row['name']}</option>";
-                        }
-                        ?>
-                    </select><br>
-
-                    <label>Autor 2 (optional):</label><br>
-                    <select name="author2">
-                        <option value=""></option>
-                        <?php
-                        $query1->execute();
                         while ($row = $query1->fetch()) {
                             echo "<option value='{$row['id']}'>{$row['name']}</option>";
                         }
@@ -130,9 +119,22 @@ $query1 = $db->query('SELECT * FROM authors');
                         ?>
                     </select><br>
 
-                    <label>Autor 2 (optional):</label><br>
-                    <select name="author2">
-                        <option value=""></option>
+                    <input type="submit" name="edit_article" value="Edytuj artykuł">
+
+                    <input type="text" name="article_id" id="articleIdInput" value="">
+                </form>
+                <input type="reset" value="Powrót" onclick="goBack()" id="backButton" style="margin-left: auto; margin-right:auto; margin-top:5px" />
+            </div>
+
+
+            <div>
+                <h2>Filtruj Artykuły</h2>
+                <form method="post" action="handle.php">
+                    <label for="articleId">ID Artykułu:</label>
+                    <input type="number" name="articleId" id="articleId"><br>
+
+                    <label for="authorId">ID Autora:</label>
+                    <select name="authorId" id="authorId" multiple>
                         <?php
                         $query1->execute();
                         while ($row = $query1->fetch()) {
@@ -141,11 +143,8 @@ $query1 = $db->query('SELECT * FROM authors');
                         ?>
                     </select><br>
 
-                    <input type="submit" name="edit_article" value="Edytuj artykuł">
-
-                    <input type="hidden" name="article_id" id="articleIdInput" value="">
+                    <input type="submit" name="filter_results" value="Filtruj">
                 </form>
-                <input type="reset" value="Powrót" onclick="goBack()" id="backButton" style="margin-left: auto; margin-right:auto; margin-top:5px" />
             </div>
 
         </section>

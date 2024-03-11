@@ -13,12 +13,12 @@ if (isset($_SESSION['article_added']) && $_SESSION['article_added'] !== false) {
     // Pobierz ID ostatnio wstawionego artykułu
     $lastInsertId = $db->lastInsertId();
 
-    // Dodaj informacje o autorach do tabeli article_authors
-    $query2 = $db->prepare('INSERT INTO article_authors VALUES(NULL, :ArtId, :AuthorId)');
-    $query2->bindValue(':ArtId', $lastInsertId, PDO::PARAM_INT);
-    $query2->bindValue(':AuthorId', $newArt['ArtAuthorPrimal'], PDO::PARAM_INT);
-    $query2->execute();
-
+    foreach ($newArt['ArtAuthorPrimal'] as $authorId) {
+        $query2 = $db->prepare('INSERT INTO article_authors VALUES(NULL, :ArtId, :AuthorId)');
+        $query2->bindValue(':ArtId', $lastInsertId, PDO::PARAM_INT);
+        $query2->bindValue(':AuthorId', $authorId, PDO::PARAM_INT);
+        $query2->execute();
+    }
 
     header('Location: index.php');
     exit;
