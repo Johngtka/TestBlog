@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2024 at 06:03 PM
+-- Generation Time: Mar 12, 2024 at 06:08 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -34,6 +34,20 @@ CREATE TABLE `articles` (
   `submission_date` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`id`, `title`, `text`, `submission_date`) VALUES
+(1, 'Test 1', 'hello world', '2024-03-21'),
+(2, 'Test 2', 'Lorem ipsum', '2024-03-10'),
+(3, 'Test 3', 'What\'s my name', '2024-03-09'),
+(4, 'Test 4', 'DOlor', '2024-03-08'),
+(5, 'Test 5', 'Ipsum', '2024-03-08'),
+(6, 'Test 6', 'próba', '2024-03-09'),
+(7, '7', '77', '2024-03-10'),
+(8, '8', 'test 8', '2024-03-10'),
+(9, '9', 'test 364637', '2024-03-08');
 
 -- --------------------------------------------------------
 
@@ -47,6 +61,28 @@ CREATE TABLE `article_authors` (
   `author_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `article_authors`
+--
+
+INSERT INTO `article_authors` (`id`, `article_id`, `author_id`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 2, 2),
+(4, 3, 1),
+(5, 3, 10),
+(6, 4, 1),
+(7, 4, 7),
+(8, 5, 9),
+(9, 6, 8),
+(10, 7, 8),
+(11, 8, 8),
+(12, 8, 9),
+(13, 9, 1),
+(14, 9, 8),
+(15, 9, 9);
+
+-- --------------------------------------------------------
 
 --
 -- Struktura tabeli dla tabeli `authors`
@@ -105,13 +141,13 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `article_authors`
 --
 ALTER TABLE `article_authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `authors`

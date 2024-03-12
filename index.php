@@ -23,9 +23,9 @@ $query1 = $db->query('SELECT * FROM authors');
             let listOfAllArticles = document.querySelector('#listOfAllArticles')
             let filteredResults = document.querySelector('#filteredResults')
 
-
-            filteredResults.style.display = 'none'
             editNews.style.display = 'none'
+            filteredResults.style.display = 'none'
+
             backButton.style.display = 'none'
 
 
@@ -33,8 +33,8 @@ $query1 = $db->query('SELECT * FROM authors');
                 var articleId = clickedButton.getAttribute('data-id'); // Pobierz ID artykułu
                 document.querySelector('#editNews input[name="article_id"]').value = articleId;
 
-                newNews.style.display = 'none'; // Ukryj formularz tworzenia
-                editNews.style.display = 'block'; // Pokaż formularz edycji
+                editNews.style.display = 'block';
+                newNews.style.display = 'none';
                 backButton.style.display = 'block'
             };
 
@@ -106,7 +106,7 @@ $query1 = $db->query('SELECT * FROM authors');
                     <input type="submit" name="add_article" value="Dodaj Artykuł">
                 </form>
             </div>
-            <!-- <div id="editNews">
+            <div id="editNews">
                 <h2>Edytuj Newsa</h2>
                 <form method="post" action="handle.php">
 
@@ -135,7 +135,7 @@ $query1 = $db->query('SELECT * FROM authors');
                     <input type="text" name="article_id" id="articleIdInput" value="">
                 </form>
                 <input type="reset" value="Powrót" onclick="goBack()" id="backButton" style="margin-left: auto; margin-right:auto; margin-top:5px" />
-            </div> -->
+            </div>
 
 
             <div>
