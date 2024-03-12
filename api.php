@@ -19,19 +19,21 @@ if (isset($_SESSION['article_added']) && $_SESSION['article_added'] !== false) {
         $query2->bindValue(':AuthorId', $authorId, PDO::PARAM_INT);
         $query2->execute();
     }
+    unset($_SESSION['article_added']);
+    unset($_SESSION['NewArticle']);
     header('Location: index.php');
     exit;
 } else if (isset($_SESSION['articles_filtered']) && $_SESSION['articles_filtered'] !== false) {
-
     $articleId = $_SESSION['SearchParameters'];
     $query = $db->prepare('SELECT * FROM articles WHERE id=:Id');
     $query->bindValue(':Id', $articleId, PDO::PARAM_STR);
     $query->execute();
     $_SESSION['FR'] = $query->fetch();
+    unset($_SESSION['articles_filtered']);
     header('Location: index.php');
     exit;
 } else if (isset($_SESSION['authors_filtered']) && $_SESSION['authors_filtered'] !== false) {
-    unset($_SESSION['authors_filtered']);
+
     $authorId = $_SESSION['SearchParameters'];
     $query = $db->prepare(
         'SELECT a.*, c.name AS AuthorName 
@@ -43,6 +45,7 @@ if (isset($_SESSION['article_added']) && $_SESSION['article_added'] !== false) {
     $query->bindValue(':Id', $authorId, PDO::PARAM_STR);
     $query->execute();
     $_SESSION['AR'] = $query->fetchAll();
+    unset($_SESSION['authors_filtered']);
     header('Location: index.php');
     exit;
 } else if (isset($_SESSION['show_top_3']) && $_SESSION['show_top_3'] !== false) {
@@ -67,6 +70,7 @@ if (isset($_SESSION['article_added']) && $_SESSION['article_added'] !== false) {
     );
     $query->execute();
     $_SESSION['ST'] = $query->fetchAll();
+    unset($_SESSION['show_top_3']);
     header('Location: index.php');
     exit;
 }

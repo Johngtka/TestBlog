@@ -6,7 +6,6 @@ INNER JOIN authors ON article_authors.author_id = authors.id
 GROUP BY articles.id, articles.title, articles.text, articles.submission_date;');
 $query->execute();
 $query1 = $db->query('SELECT * FROM authors');
-// phpinfo()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,29 +18,27 @@ $query1 = $db->query('SELECT * FROM authors');
         document.addEventListener('DOMContentLoaded', (event) => {
             let newNews = document.querySelector('#createNews');
             let editNews = document.querySelector('#editNews');
-            let backButton = document.querySelector('#backButton')
-            let listOfAllArticles = document.querySelector('#listOfAllArticles')
-            let filteredResults = document.querySelector('#filteredResults')
+            let backButton = document.querySelector('#backButton');
 
-            editNews.style.display = 'none'
-            filteredResults.style.display = 'none'
-
-            backButton.style.display = 'none'
+            editNews.style.display = 'none';
+            backButton.style.display = 'none';
 
 
             window.editFormShowing = function(clickedButton) {
-                var articleId = clickedButton.getAttribute('data-id'); // Pobierz ID artykułu
+                var articleId = clickedButton.getAttribute('data-id');
                 document.querySelector('#editNews input[name="article_id"]').value = articleId;
 
-                editNews.style.display = 'block';
                 newNews.style.display = 'none';
-                backButton.style.display = 'block'
+                editNews.style.display = 'block';
+
+                backButton.style.display = 'block';
             };
 
+
             window.goBack = function() {
-                newNews.style.display = 'block'; // Ukryj formularz tworzenia
-                editNews.style.display = 'none'; // Pokaż formularz edycji
-                backButton.style.display = 'none'
+                newNews.style.display = 'block';
+                editNews.style.display = 'none';
+                backButton.style.display = 'none';
             };
         });
     </script>
@@ -119,7 +116,7 @@ $query1 = $db->query('SELECT * FROM authors');
                     <textarea name="text"></textarea><br>
 
                     <label>Autor 1:</label><br>
-                    <select name="author1" required>
+                    <select name="author[]" required multiple>
 
                         <?php
                         $query1->execute();
@@ -130,9 +127,9 @@ $query1 = $db->query('SELECT * FROM authors');
                         ?>
                     </select><br>
 
-                    <input type="submit" name="edit_article" value="Edytuj artykuł">
+                    <input type="submit" name="edit_article" value="Edytuj Artykuł">
 
-                    <input type="text" name="article_id" id="articleIdInput" value="">
+                    <input type="hidden" name="article_id" id="articleIdInput" value="">
                 </form>
                 <input type="reset" value="Powrót" onclick="goBack()" id="backButton" style="margin-left: auto; margin-right:auto; margin-top:5px" />
             </div>
@@ -171,7 +168,7 @@ $query1 = $db->query('SELECT * FROM authors');
                         ?>
                     </select><br>
 
-                    <input type="submit" name="filter_authors" value="Filtruj" />
+                    <input type="submit" name="filter_authors" value="Filtruj_Autorów" />
                 </form>
                 <?php
                 if (isset($_SESSION['AR']) && is_array($_SESSION['AR'])) {
