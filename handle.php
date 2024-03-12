@@ -1,6 +1,6 @@
 <?php
+require_once './PDOEngine.php';
 
-session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_article']) && $_POST['add_article'] === "Dodaj Artykuł") {
         unset($_SESSION['add_article']);
@@ -39,16 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (isset($_POST['edit_article']) && $_POST['edit_article'] === "Edytuj Artykuł") {
         unset($_POST['edit_article']);
+        $_SESSION['edited_article'] = true;
         $EditArticleData = [
             'ArtId' => $_POST['article_id'],
             'ArtTitle' => filter_input(INPUT_POST, 'title'),
             'ArtContent' => filter_input(INPUT_POST, 'text'),
             'ArtDateCreate' => filter_input(INPUT_POST, 'date'),
-            'ArtAuthorPrimal' => $_POST['author']
+            // 'ArtAuthorPrimal' => $_POST['author']
         ];
-        // var_dump($EditArticleData);
-        // $_SESSION['show_top_3'] = true;
-        // header('Location: api.php');
+        $_SESSION['edit_data'] = $EditArticleData;
+        header('Location: api.php');
         exit;
     }
 }

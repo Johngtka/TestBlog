@@ -73,4 +73,15 @@ if (isset($_SESSION['article_added']) && $_SESSION['article_added'] !== false) {
     unset($_SESSION['show_top_3']);
     header('Location: index.php');
     exit;
+} else if (isset($_SESSION['edited_article']) && $_SESSION['edited_article'] !== false) {
+    $editArticle = $_SESSION['edit_data'];
+    $query = $db->prepare('UPDATE articles SET title = :title, text= :content, submission_date = :date WHERE id=:Id');
+    $query->bindValue(':title', $editArticle['ArtTitle'], PDO::PARAM_STR);
+    $query->bindValue(':content', $editArticle['ArtContent'], PDO::PARAM_STR);
+    $query->bindValue(':date', $editArticle['ArtDateCreate'], PDO::PARAM_STR);
+    $query->bindValue(':Id', $editArticle['ArtId'], PDO::PARAM_INT);
+    $query->execute();
+    unset($_SESSION['edited_article']);
+    header('Location: index.php');
+    exit;
 }

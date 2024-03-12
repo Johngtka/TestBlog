@@ -113,9 +113,10 @@ $query1 = $db->query('SELECT * FROM authors');
                     <input type="date" name="date" required><br>
 
                     <label for="text">Tekst:</label><br>
-                    <textarea name="text"></textarea><br>
+                    <textarea name="text" required></textarea><br>
 
-                    <label>Autor 1:</label><br>
+                    The author's edition is under preparation
+                    <!-- <label>Autor 1:</label><br>
                     <select name="author[]" required multiple>
 
                         <?php
@@ -125,7 +126,7 @@ $query1 = $db->query('SELECT * FROM authors');
                             echo "<option value='{$row['id']}'>{$row['name']}</option>";
                         }
                         ?>
-                    </select><br>
+                    </select><br> -->
 
                     <input type="submit" name="edit_article" value="Edytuj Artykuł">
 
