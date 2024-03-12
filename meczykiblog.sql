@@ -111,7 +111,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `article_authors`
 --
 ALTER TABLE `article_authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `authors`

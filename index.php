@@ -72,8 +72,8 @@ $query1 = $db->query('SELECT * FROM authors');
                 }
                 ?>
             </div>
-            <!-- <div id="filteredResults">
-           
+            <!-- <div>
+              
             </div> -->
 
         </section>
@@ -91,7 +91,7 @@ $query1 = $db->query('SELECT * FROM authors');
                     <textarea name="text"></textarea><br>
 
                     <label>Autor 1:</label><br>
-                    <select name="author[]" required multiple="multiple">
+                    <select name="author[]" required multiple>
 
                         <?php
                         $query1->execute();
@@ -146,9 +146,67 @@ $query1 = $db->query('SELECT * FROM authors');
 
                     <input type="submit" name="filter_results" value="Filtruj" />
                 </form>
+                <?php
+                if (isset($_SESSION['FR'])) {
+                    $row = $_SESSION['FR'];
+                    echo "<h3>" . $row['title'] . "</h3>";
+                    echo "<p>" . $row['text'] . "</p>";
+                    echo "<p>" . $row['submission_date'] . "</p>";
+                    unset($_SESSION['FR']);
+                }
+                ?>
             </div>
+            <div>
+                <h2>Filtruj po Autorze</h2>
+                <form method="post" action="handle.php">
+                    <label>Autorzy:</label><br>
+                    <select name="author" required>
+
+                        <?php
+                        $query1->execute();
+
+                        while ($row = $query1->fetch()) {
+                            echo "<option value='{$row['id']}'>{$row['name']}</option>";
+                        }
+                        ?>
+                    </select><br>
+
+                    <input type="submit" name="filter_authors" value="Filtruj" />
+                </form>
+                <?php
+                if (isset($_SESSION['AR']) && is_array($_SESSION['AR'])) {
+                    foreach ($_SESSION['AR'] as $row) {
+                ?>
+                        <h3><?php echo $row['title'] ?></h3>
+                        <p><?php echo $row['text'] ?></p>
+                        <p><?php echo $row['submission_date'] ?></p>
+                <?php
+                    }
+
+                    unset($_SESSION['AR']);
+                }
+                ?>
+            </div>
+            <div>
+                <h2>Top 3:</h2>
+                <form method="post" action="handle.php">
+                    <input type="submit" name="top_3_authors" value="Pokaż" />
+                </form>
+                <?php
 
 
+                if (isset($_SESSION['ST']) && is_array($_SESSION['ST'])) {
+                    foreach ($_SESSION['ST'] as $row) {
+                ?>
+                        <p><?php echo $row['Author_Name'] ?></p>
+                        <p><?php echo $row['Num_Articles_Submitted'] ?></p>
+                <?php
+                    }
+                    unset($_SESSION['ST']);
+                }
+
+                ?>
+            </div>
 
         </section>
     </main>
