@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2024 at 09:19 AM
+-- Generation Time: Mar 11, 2024 at 06:03 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -31,10 +31,9 @@ CREATE TABLE `articles` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
-  `creation_date` date DEFAULT current_timestamp(),
-  `PrimalAuthor_id` int(11) DEFAULT NULL,
-  `SecondaryAuthor_id` int(11) DEFAULT NULL
+  `submission_date` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
@@ -43,11 +42,11 @@ CREATE TABLE `articles` (
 --
 
 CREATE TABLE `article_authors` (
+  `id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
 
 --
 -- Struktura tabeli dla tabeli `authors`
@@ -72,7 +71,7 @@ INSERT INTO `authors` (`id`, `name`) VALUES
 (7, 'Małgorzata Mazur'),
 (8, 'Marcin Krawczyk'),
 (9, 'Joanna Pawlak'),
-(10, 'Test Author');
+(10, '!111');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -82,16 +81,15 @@ INSERT INTO `authors` (`id`, `name`) VALUES
 -- Indeksy dla tabeli `articles`
 --
 ALTER TABLE `articles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `author_id` (`PrimalAuthor_id`),
-  ADD KEY `SecorndaryAuthor_id` (`SecondaryAuthor_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `article_authors`
 --
 ALTER TABLE `article_authors`
-  ADD PRIMARY KEY (`article_id`,`author_id`),
-  ADD KEY `author_id` (`author_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_article_id` (`article_id`),
+  ADD KEY `fk_author_id` (`author_id`);
 
 --
 -- Indeksy dla tabeli `authors`
@@ -107,7 +105,13 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT for table `article_authors`
+--
+ALTER TABLE `article_authors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `authors`
@@ -120,18 +124,13 @@ ALTER TABLE `authors`
 --
 
 --
--- Constraints for table `articles`
---
-ALTER TABLE `articles`
-  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`PrimalAuthor_id`) REFERENCES `authors` (`id`),
-  ADD CONSTRAINT `articles_ibfk_2` FOREIGN KEY (`SecondaryAuthor_id`) REFERENCES `authors` (`id`);
-
---
 -- Constraints for table `article_authors`
 --
 ALTER TABLE `article_authors`
   ADD CONSTRAINT `article_authors_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`),
-  ADD CONSTRAINT `article_authors_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`);
+  ADD CONSTRAINT `article_authors_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`),
+  ADD CONSTRAINT `fk_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`),
+  ADD CONSTRAINT `fk_author_id` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

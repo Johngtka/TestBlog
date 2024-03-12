@@ -6,7 +6,7 @@ INNER JOIN authors ON article_authors.author_id = authors.id
 GROUP BY articles.id, articles.title, articles.text, articles.submission_date;');
 $query->execute();
 $query1 = $db->query('SELECT * FROM authors');
-
+// phpinfo()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +20,15 @@ $query1 = $db->query('SELECT * FROM authors');
             let newNews = document.querySelector('#createNews');
             let editNews = document.querySelector('#editNews');
             let backButton = document.querySelector('#backButton')
+            let listOfAllArticles = document.querySelector('#listOfAllArticles')
+            let filteredResults = document.querySelector('#filteredResults')
+
+
+            filteredResults.style.display = 'none'
             editNews.style.display = 'none'
             backButton.style.display = 'none'
-            // Funkcja do przełączania widoczności formularzy
+
+
             window.editFormShowing = function(clickedButton) {
                 var articleId = clickedButton.getAttribute('data-id'); // Pobierz ID artykułu
                 document.querySelector('#editNews input[name="article_id"]').value = articleId;
@@ -31,6 +37,7 @@ $query1 = $db->query('SELECT * FROM authors');
                 editNews.style.display = 'block'; // Pokaż formularz edycji
                 backButton.style.display = 'block'
             };
+
             window.goBack = function() {
                 newNews.style.display = 'block'; // Ukryj formularz tworzenia
                 editNews.style.display = 'none'; // Pokaż formularz edycji
@@ -48,7 +55,7 @@ $query1 = $db->query('SELECT * FROM authors');
         <section class="newsPanel">
             <h2>Lista Newsów w Serwisie</h2>
 
-            <div class="tilesLayers">
+            <div class="tilesLayers" id="listOfAllArticles">
                 <?php
                 while ($row = $query->fetch()) {
                 ?>
@@ -65,6 +72,10 @@ $query1 = $db->query('SELECT * FROM authors');
                 }
                 ?>
             </div>
+            <!-- <div id="filteredResults">
+           
+            </div> -->
+
         </section>
         <section>
             <div id="createNews">
@@ -92,10 +103,10 @@ $query1 = $db->query('SELECT * FROM authors');
                     </select><br>
 
 
-                    <input type="submit" name="add_article" value="Dodaj artykuł">
+                    <input type="submit" name="add_article" value="Dodaj Artykuł">
                 </form>
             </div>
-            <div id="editNews">
+            <!-- <div id="editNews">
                 <h2>Edytuj Newsa</h2>
                 <form method="post" action="handle.php">
 
@@ -124,28 +135,20 @@ $query1 = $db->query('SELECT * FROM authors');
                     <input type="text" name="article_id" id="articleIdInput" value="">
                 </form>
                 <input type="reset" value="Powrót" onclick="goBack()" id="backButton" style="margin-left: auto; margin-right:auto; margin-top:5px" />
-            </div>
+            </div> -->
 
 
             <div>
                 <h2>Filtruj Artykuły</h2>
                 <form method="post" action="handle.php">
-                    <label for="articleId">ID Artykułu:</label>
-                    <input type="number" name="articleId" id="articleId"><br>
 
-                    <label for="authorId">ID Autora:</label>
-                    <select name="authorId" id="authorId" multiple>
-                        <?php
-                        $query1->execute();
-                        while ($row = $query1->fetch()) {
-                            echo "<option value='{$row['id']}'>{$row['name']}</option>";
-                        }
-                        ?>
-                    </select><br>
+                    <input type="number" name="articleId"><br>
 
-                    <input type="submit" name="filter_results" value="Filtruj">
+                    <input type="submit" name="filter_results" value="Filtruj" />
                 </form>
             </div>
+
+
 
         </section>
     </main>
