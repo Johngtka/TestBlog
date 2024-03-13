@@ -7,7 +7,7 @@ project.
 
 -   Install the Environment
     [XAMMP](https://www.apachefriends.org/pl/download.html) in the latest
-    possible version. latest version possible, I recommend 8.2.4, or install the
+    possible version. I recommend 8.2.4, or install the
     attached installer file on my
     [GoogleDrive](https://drive.google.com/file/d/1c6EBrCRODwjT9mKDt5Hwge94u5Yneluj/view?usp=sharing).
 -   Then place the files from this project in the location C:\xammp\htdocs and
